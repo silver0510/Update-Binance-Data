@@ -9,7 +9,7 @@ namespace Update_Binance_Data
 {
     class Program
     {
-        static DatabaseAccess db = new DatabaseAccess();
+        static DatabaseAccess db = new DatabaseAccess(DatabaseAccess.onlineServer);
         static ReadAPI api = new ReadAPI();
         private static System.Timers.Timer updateTime;
         static void Main(string[] args)

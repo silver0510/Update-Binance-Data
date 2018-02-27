@@ -11,18 +11,36 @@ namespace Update_Binance_Data
     public class DatabaseAccess
     {
         //dữ liệu hiện tại là server của thèng Thái, của mình là phần bị comment
-        public static string SERVER = "128.199.233.99"; //"localhost";//
-        public static string DATABASE = "binance";//"binance_data";//
-        public static string UID = "binance";//"root";//
-        public static string PASSWORD = "binance##"; //"";//
-        public static string BTCTABLE = "BTCMARKET"; //"btcmarket";//
-        public static string ETHTABLE = "ETHMARKET"; //"ethmarket";//
-        public static string BNBTABLE = "BNBMARKET"; //"bnbmarket";//
-        public static string USDTABLE = "USDMARKET"; //"usdmarket";//
+        public static ServerInfo onlineServer = new ServerInfo
+        {
+            SERVER = "128.199.233.99",
+            DATABASE = "binance",
+            UID = "binance",
+            PASSWORD = "binance##",
+        };
+        public static ServerInfo localServer = new ServerInfo
+        {
+            SERVER = "localhost",
+            DATABASE = "binance_data",
+            UID = "root",
+            PASSWORD = "",
+        };
 
-        string connetionString = "server=" + SERVER + ";database="+ DATABASE + ";uid="+ UID + ";pwd=" + PASSWORD + ";";
+        public static string BTCTABLE = "BTCMARKET";
+        public static string ETHTABLE = "ETHMARKET";
+        public static string BNBTABLE = "BNBMARKET";
+        public static string USDTABLE = "USDMARKET";
+
+        string connetionString;
         MySqlConnection con = null;
-        
+        private ServerInfo server;
+
+        public DatabaseAccess(ServerInfo sv)
+        {
+            server = sv;
+            connetionString = "server=" + server.SERVER + ";database=" + server.DATABASE + ";uid=" + server.UID + ";pwd=" + server.PASSWORD + ";";
+        }
+
 
         public void DBConnect()
         {
@@ -103,6 +121,7 @@ namespace Update_Binance_Data
             int rowcount = Convert.ToInt32(obj);
 
             if (rowcount == 0) return true;
+            DBClose();
             return false;
         }
     }
