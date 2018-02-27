@@ -1,0 +1,36 @@
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe.config
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.pdb
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\bin\Debug\MySql.Data.dll
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.csprojResolveAssemblyReference.cache
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.exe
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.pdb
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.dll
+D:\Project Study C#\Project\Update Binance Data\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.xml
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe.config
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.exe
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.pdb
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.pdb
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\MySql.Data.dll
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.dll
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.xml
+D:\SoftDemo\Update Binance Data\Update-Binance-Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.csprojResolveAssemblyReference.cache
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe.config
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.pdb
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\MySql.Data.dll
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.dll
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.xml
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.csprojResolveAssemblyReference.cache
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.exe
+D:\SoftDemo\Update-Binance-Data\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.pdb
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe.config
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.exe
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.pdb
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.exe
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\bin\Debug\Update Binance Data.pdb
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\bin\Debug\MySql.Data.dll
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.dll
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\bin\Debug\Newtonsoft.Json.xml
+D:\Project Study C#\Project\Update-Binance-Data-master\Update-Binance-Data-master\Update Binance Data\Update Binance Data\obj\Debug\Update Binance Data.csprojResolveAssemblyReference.cache
