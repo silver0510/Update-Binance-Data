@@ -124,5 +124,28 @@ namespace Update_Binance_Data
             DBClose();
             return false;
         }
+
+        //lấy thời gian cuối cùng update
+        //nếu đúng thì trả về true
+        public long getLastTimeUpdate()
+        {
+            long ret = 0;
+
+            DBConnect();
+            MySqlCommand mySqlCmd = new MySqlCommand();
+            mySqlCmd.Connection = con;
+            mySqlCmd.CommandType = System.Data.CommandType.Text;
+            string cmd = "SELECT * FROM " + BTCTABLE + " ORDER BY ID DESC LIMIT 1 ";
+            mySqlCmd.CommandText = cmd;
+
+            MySqlDataReader mySqlReader = mySqlCmd.ExecuteReader();
+            if (mySqlReader.Read())
+            {
+                ret = mySqlReader.GetInt64("CLOSETIME");
+            }
+
+            DBClose();
+            return ret;
+        }
     }
 }

@@ -9,14 +9,30 @@ namespace Update_Binance_Data
 {
     class Program
     {
-        static DatabaseAccess db = new DatabaseAccess(DatabaseAccess.onlineServer);
+        private const long HOURSPAN = 3600000;
+        private const long HOUR500SPAN = 1800000000;
+
+        static DatabaseAccess db = new DatabaseAccess(DatabaseAccess.localServer);
         static ReadAPI api = new ReadAPI();
         private static System.Timers.Timer updateTime;
+        private static bool updating = false;
+
         static void Main(string[] args)
         {
             //getDataAllCoinEveryHour();
             //Console.WriteLine(ConvertToTimestamp(DateTime.Now));
-            if (db.checkNewDBOrNot()) getAllCoinData500h();
+            if (db.checkNewDBOrNot())
+            {
+                getAllCoinData500h();
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                long startUpdateTime = db.getLastTimeUpdate();
+                long endUpdateTime = ConvertToTimestamp(now);
+
+                getAllCoinDataByTime(startUpdateTime, endUpdateTime);
+            }
 
             updateTime = new System.Timers.Timer();
             updateTime.Elapsed += updateAllCoinData;
@@ -31,13 +47,13 @@ namespace Update_Binance_Data
             //Console.ReadLine();
         }
 
-        private static bool updating = false;
+        
         private static void updateAllCoinData(object sender, System.Timers.ElapsedEventArgs e)
         {
             DateTime updateTime = DateTime.Now;
             if (!updating)
             {
-                if ((updateTime.Minute == 1) && (updateTime.Second == 0))
+                if ((updateTime.Minute == 1) && (updateTime.Second == 00))
                 {
                     updating = true;
                     Console.WriteLine("Update Time: " + updateTime.ToLongTimeString());
@@ -55,13 +71,14 @@ namespace Update_Binance_Data
 
         static long ConvertToTimestamp(DateTime value)
         {
-            TimeZoneInfo NYTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            DateTime NyTime = TimeZoneInfo.ConvertTime(value, NYTimeZone);
-            TimeZone localZone = TimeZone.CurrentTimeZone;
-            System.Globalization.DaylightTime dst = localZone.GetDaylightChanges(NyTime.Year);
-            NyTime = NyTime.AddHours(-1);
+            //TimeZoneInfo NYTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            //DateTime NyTime = TimeZoneInfo.ConvertTime(value, NYTimeZone);
+            //DateTime BNBTime = NyTime.AddHours(13);
+            //TimeZone localZone = TimeZone.CurrentTimeZone;
+            //System.Globalization.DaylightTime dst = localZone.GetDaylightChanges(NyTime.Year);
+            //NyTime = NyTime.AddHours(-1);
             DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
-            TimeSpan span = (NyTime - epoch);
+            TimeSpan span = (value - epoch);
             return (long)Convert.ToDouble(span.TotalMilliseconds);
         }
 
@@ -110,7 +127,7 @@ namespace Update_Binance_Data
         {
             Currency coin = new Currency();
             //lấy data của coin theo nến 1h
-            coin = (Currency)getCoinDataByTime(coin24h.symbol, "1h", 2).First();
+            coin = (Currency)getCoinDataByTime(coin24h.symbol, "1h", 1).First();
             coin.change24H = coin24h.priceChange;
             return coin;
         }
@@ -137,19 +154,19 @@ namespace Update_Binance_Data
                 string symbol = jo.Property("symbol").Value.ToString();
 
                 if (symbol.Substring((symbol.Length - 4)) == "USDT")
-                    lstUSDMarket.AddRange(getCoinDataByTime(symbol, "1h", 500));
+                    lstUSDMarket.AddRange(getCoinDataByTime(symbol, "1h"));
                 else
                 {
                     switch (symbol.Substring((symbol.Length - 3)))
                     {
                         case "BTC":
-                            lstBTCMarket.AddRange(getCoinDataByTime(symbol, "1h", 500));
+                            lstBTCMarket.AddRange(getCoinDataByTime(symbol, "1h"));
                             break;
                         case "ETH":
-                            lstETHMarket.AddRange(getCoinDataByTime(symbol, "1h", 500));
+                            lstETHMarket.AddRange(getCoinDataByTime(symbol, "1h"));
                             break;
                         case "BNB":
-                            lstBNBMarket.AddRange(getCoinDataByTime(symbol, "1h", 500));
+                            lstBNBMarket.AddRange(getCoinDataByTime(symbol, "1h"));
                             break;
                     }
                 }
@@ -173,7 +190,64 @@ namespace Update_Binance_Data
             Console.WriteLine("================================");
         }
 
-        static List<Currency> getCoinDataByTime(string symbol, string interval, int limit, long startTime = 0, long endTime=0)
+        static void getAllCoinDataByTime(long startTime, long endTime)
+        {
+            long totalSpan = endTime - startTime;
+            long endTemp;
+
+            while(totalSpan > HOURSPAN)
+            {
+                if(totalSpan > HOUR500SPAN)
+                {
+                    endTemp = startTime + HOUR500SPAN;
+                }
+                else
+                {
+                    endTemp = endTime;
+                }
+
+                List<Currency> lstBTCMarket = new List<Currency>();
+                List<Currency> lstETHMarket = new List<Currency>();
+                List<Currency> lstBNBMarket = new List<Currency>();
+                List<Currency> lstUSDMarket = new List<Currency>();
+
+                String json24h = api.getExchangeData24h();
+                JArray json24hData = JArray.Parse(json24h);
+
+                foreach (JObject jo in json24hData.Children<JObject>())
+                {
+                    string symbol = jo.Property("symbol").Value.ToString();
+
+                    if (symbol.Substring((symbol.Length - 4)) == "USDT")
+                        lstUSDMarket.AddRange(getCoinDataByTime(symbol, "1h", 500, startTime, endTemp));
+                    else
+                    {
+                        switch (symbol.Substring((symbol.Length - 3)))
+                        {
+                            case "BTC":
+                                lstBTCMarket.AddRange(getCoinDataByTime(symbol, "1h", 500, startTime, endTemp));
+                                break;
+                            case "ETH":
+                                lstETHMarket.AddRange(getCoinDataByTime(symbol, "1h", 500, startTime, endTemp));
+                                break;
+                            case "BNB":
+                                lstBNBMarket.AddRange(getCoinDataByTime(symbol, "1h", 500, startTime, endTemp));
+                                break;
+                        }
+                    }
+                }
+
+                db.insertData(DatabaseAccess.BTCTABLE, lstBTCMarket);
+                db.insertData(DatabaseAccess.ETHTABLE, lstETHMarket);
+                db.insertData(DatabaseAccess.BNBTABLE, lstBNBMarket);
+                db.insertData(DatabaseAccess.USDTABLE, lstUSDMarket);
+
+                totalSpan -= HOUR500SPAN;
+                startTime = endTime + 1;
+            }
+        }
+
+        static List<Currency> getCoinDataByTime(string symbol, string interval, int limit = 500, long startTime = 0, long endTime=0)
         {
             List<Currency> lst = new List<Currency>();
             //lấy data của coin theo nến 1h
@@ -197,7 +271,7 @@ namespace Update_Binance_Data
                 coin.takerBuyQuoteAssetVolume = Convert.ToSingle(arr[10].ToString());
                 lst.Add(coin);
             }
-            lst.RemoveAt(lst.Count - 1);
+            //lst.RemoveAt(lst.Count - 1);
             return lst;
         }
     }

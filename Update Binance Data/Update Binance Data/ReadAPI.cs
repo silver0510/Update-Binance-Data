@@ -16,7 +16,7 @@ namespace Update_Binance_Data
         //limit: số lượng nến muốn lấy
         //startTime: thời gian bắt đầu lấy dữ liệu. nếu để trống thì lấy đến thời điểm hiện tại
         //endTime: thời kết thúc lấy dữ liệu. nếu để trống thì lấy đến thời điểm hiện tại
-        public string getCoinDetailCandle(string symbol,string interval = "1h",int limit = 1,long startTime = 0, long endTime = 0)
+        public string getCoinDetailCandle(string symbol,string interval = "1h",int limit = 500,long startTime = 0, long endTime = 0)
         {
             string url = @"https://api.binance.com/api/v1/klines?symbol=" + symbol.ToUpper() + "&interval=" + interval + "&limit=" + limit.ToString();
             if ((startTime != 0)&&(endTime != 0))
